@@ -1,0 +1,18 @@
+<h2>Formulario de factura</h2>
+<p>
+  <small>Nombre de cliente*</small><br /><input
+    type="text"
+    [(ngModel)]="clienteFactura.nombre"
+  />
+</p>
+<p>
+  <small>Total de factura*</small><br /><input
+    type="number"
+    [(ngModel)]="factura.totalFactura"
+  />
+</p>
+<p>
+  <small>IVA*</small><br /><input type="number" [(ngModel)]="factura.iva" />
+</p>
+<button (click)="mandarFormulario()">Enviar factura</button
+><button (click)="reiniciarFormulario()">Limpiar factura</button>

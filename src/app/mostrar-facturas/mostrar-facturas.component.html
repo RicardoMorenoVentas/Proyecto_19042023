@@ -1,0 +1,44 @@
+<app-formulario-factura></app-formulario-factura>
+<h1>Facturas actuales:</h1>
+<div *ngIf="lista_facturas.length > 0; else vacio">
+  <table>
+    <tr>
+      <th>ID Factura</th>
+      <th>ID Cliente</th>
+      <th>Total Factura</th>
+      <th>IVA</th>
+    </tr>
+    <tr *ngFor="let index of lista_facturas">
+      <td>{{index.idFactura}}</td>
+      <td>{{index.cliente.id}}</td>
+      <td>{{index.totalFactura}}</td>
+      <td>{{index.iva}}</td>
+    </tr>
+  </table>
+</div>
+<br>
+<h2>Operativas con las facturas</h2>
+<h3>ID de Factura</h3>
+<input type="number" [(ngModel)]="id_query">
+<button (click)="eliminar_factura()">Eliminar</button><button (click)="obtener_factura()">Leer</button><button (click)="editar_factura()">Editar</button>
+<div>
+  <h2>Detalles de factura</h2>
+  <div *ngIf="revisar_actual();then MostrarFact else NoMuestraFact"></div>
+  <div *ngIf="editar then EditarFactura"></div>
+</div>
+<ng-template #vacio>
+  <h3>El array está vacio</h3>
+</ng-template>
+<ng-template #NoMuestraFact><h3>No hay factura seleccionada</h3></ng-template>
+<ng-template #MostrarFact>
+  <p><small>ID de cliente</small><br>{{factura_seleccinada!.cliente.id}}</p>
+  <p><small>Nombre de cliente</small><br>{{factura_seleccinada!.cliente.nombre}}</p>
+  <p><small>Total de factura</small><br>{{factura_seleccinada!.totalFactura}}</p>
+  <p><small>IVA</small><br>{{factura_seleccinada!.iva}}</p>
+</ng-template>
+<ng-template #EditarFactura>
+  <p><small>Nombre de cliente</small><input type="text" [(ngModel)]="factura_seleccinada.cliente.nombre"></p>
+  <p><small>Total de factura</small><input type="number" [(ngModel)]="factura_seleccinada.totalFactura"></p>
+  <p><small>IVA</small><input type="number" [(ngModel)]="factura_seleccinada.iva"></p>
+  <button (click)="mandar_edit()">Actualizar</button>
+</ng-template>
